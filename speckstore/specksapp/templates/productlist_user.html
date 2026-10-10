@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <!-- Premium boutique typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            /* Premium dress designing atelier background image */
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1974&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            padding: 50px 30px;
+        }
+
+        /* Top Navigation Button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 35px;
+            padding: 11px 24px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #ffffff;
+            color: #111111;
+            transform: translateX(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Page Headers */
+        .heading {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .heading h1 {
+            font-family: 'Playfair Display', serif;
+            color: #ffffff;
+            font-size: 2.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .heading::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: #d4af37; /* Luxe gold line detail */
+            margin: 15px auto 0;
+        }
+
+        /* Responsive Product Layout */
+        .product-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* Editorial Product Card */
+        .product-card {
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+        }
+
+        /* Image Display Frame */
+        .image-frame {
+            width: 100%;
+            height: 380px;
+            overflow: hidden;
+            background: #eaeaea;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .product-card:hover img {
+            transform: scale(1.04);
+        }
+
+        /* Information Section */
+        .product-info {
+            padding: 28px 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #111111;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-name {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #d4af37;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+        .price {
+            font-family: 'Playfair Display', serif;
+            color: #111111;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            border-bottom: 1px solid #e5e5e5;
+            padding-bottom: 12px;
+        }
+
+        /* Attribute Tags */
+        .details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            row-gap: 8px;
+            column-gap: 12px;
+            font-size: 13px;
+            color: #555555;
+            margin-bottom: 15px;
+        }
+
+        .details p {
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
+            padding-bottom: 4px;
+        }
+
+        .details span {
+            font-weight: 500;
+            color: #111111;
+        }
+
+        .description {
+            font-size: 13px;
+            color: #666666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-weight: 300;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-align: justify;
+        }
+
+        /* Card Button Configuration */
+        .actions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .buy-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: #111111;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #d4af37;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .secondary-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #222222;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            flex: 1;
+        }
+
+        .btn-outline:hover {
+            background: rgba(0, 0, 0, 0.04);
+            border-color: #111111;
+        }
+
+        /* Empty State */
+        .empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            font-size: 18px;
+            color: #cbd5e1;
+            letter-spacing: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media(max-width: 768px) {
+            body {
+                padding: 30px 15px;
+            }
+            .heading h1 {
+                font-size: 2rem;
+            }
+            .image-frame {
+                height: 320px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="/home/" class="back-btn">
+        ← Back to Studio
+    </a>
+
+    <div class="heading">
+        <h1>Our Collection</h1>
+    </div>
+
+    <div class="product-container">
+
+        {% for p in product %}
+
+        <div class="product-card">
+            <div class="image-frame">
+                {% if p.image %}
+                    <img src="{{ p.image.url }}" alt="{{ p.name }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/350x380" alt="No Image Available">
+                {% endif %} 
+            </div>
+
+            <div class="product-info">
+                <h2 class="product-name">{{ p.name }}</h2>
+                <div class="brand-name">{{ p.brand }}</div>
+
+                <div class="price">₹{{ p.price }}</div>
+
+                <div class="details">
+                    <p><span>Size:</span> {{ p.size }}</p>
+                    <p><span>Material:</span> {{ p.material }}</p>
+                    <p><span>Neckline:</span> {{ p.neckline }}</p>
+                    <p><span>Sleeve:</span> {{ p.sleeve_length }}</p>
+                    <p><span>Length:</span> {{ p.length }}</p>
+                    <p><span>Color:</span> {{ p.color }}</p>
+                    <p style="grid-column: span 2;"><span>Pattern:</span> {{ p.pattern }}</p>
+                </div>
+
+                <p class="description">
+                    {{ p.description }}
+                </p>
+                
+                <div class="actions-grid">
+                    <!-- High prominence main card item action -->
+                    <a href="/add_to_cart/{{ p.id }}/" class="buy-btn btn-primary">
+                        🛒 Add to Cart
+                    </a>
+
+                    <!-- Compact secondary gallery navigation tools -->
+                    <div class="secondary-actions">
+                        <a href="/product_detail/{{ p.id }}/" class="buy-btn btn-outline">
+                            Details
+                        </a>
+                        <a href="/wishlist/{{ p.id }}/" class="buy-btn btn-outline">
+                            ♥ Wishlist
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% empty %}
+
+        <div class="empty">
+            No bespoke products found in this lookbook catalog.
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</body>
+</html>

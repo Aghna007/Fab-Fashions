@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Feedbacks</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            /* High-quality clothing boutique image with a dark overlay matching your other pages */
+            background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), 
+                        url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 40px;
+            color: #ffffff; /* White title to pop against the dark image overlay */
+            margin-bottom: 40px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .feedback-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .feedback-card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feedback-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .feedback-card::before {
+            content: '❝';
+            position: absolute;
+            top: -15px;
+            right: 15px;
+            font-size: 80px;
+            color: rgba(0, 0, 0, 0.08); /* Softened quote color for a premium feel */
+        }
+
+        .user-name {
+            font-size: 22px;
+            font-weight: bold;
+            color: #111111; /* Changed to sleek black to stay uniform with the brand style */
+            margin-bottom: 15px;
+        }
+
+        .feedback-text {
+            color: #555;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .empty {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.98);
+            padding: 40px;
+            border-radius: 20px;
+            font-size: 22px;
+            color: #666;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        @media(max-width:768px){
+            .title {
+                font-size: 30px;
+            }
+
+            .feedback-card {
+                padding: 20px;
+            }
+        }
+        .back-btn-container{
+    width:100%;
+    max-width:1200px;
+    margin-bottom:20px;
+}
+
+.back-btn{
+    display:inline-block;
+    padding:10px 20px;
+    background:#111111;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    background:#333;
+    transform:translateY(-2px);
+}
+    </style>
+</head>
+<body>
+    <div class="back-btn-container">
+    <a href="javascript:history.back()" class="back-btn">← Back</a>
+</div>
+
+    <div class="container">
+
+        <h1 class="title">Customer Feedbacks</h1>
+
+        {% if feedbacks %}
+        <div class="feedback-grid">
+
+            {% for feedback in feedbacks %}
+            <div class="feedback-card">
+
+                <div class="user-name">
+                    {{ feedback.user.name }}
+                </div>
+
+                <div class="feedback-text">
+                    {{ feedback.feedback }}
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </div>
+        {% else %}
+
+        <div class="empty">
+            No feedbacks available yet.
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+</html>

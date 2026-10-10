@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - User List</title>
+    <style>
+        /* Modern Reset & Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            /* Consistent high-quality boutique clothing background with overlay */
+            background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), 
+                        url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            color: #333;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            font-weight: 600;
+            color: #ffffff; /* Changed to white to pop against background overlay */
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Responsive Grid Container */
+        .user-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* Modern Card Styling */
+        .user-card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .user-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Profile Image Container */
+        .avatar-container {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: #e2e8f0;
+            margin-bottom: 16px;
+            border: 3px solid #111111; /* Changed border to match sleek theme */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Default initial avatar if image doesn't exist */
+        .default-avatar {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #111111;
+        }
+
+        /* Typography & Details */
+        .user-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #111111;
+            margin-bottom: 4px;
+        }
+
+        .user-gender {
+            display: inline-block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            background-color: #111111;
+            color: #ffffff; /* Contrast pills for gender markers */
+        }
+
+        .user-info-group {
+            width: 100%;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 12px;
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: left;
+            font-size: 0.875rem;
+            color: #475569;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #94a3b8;
+            width: 70px;
+            flex-shrink: 0;
+        }
+
+        /* Empty State */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+        .back-btn-container{
+    width:100%;
+    max-width:1200px;
+    margin-bottom:20px;
+}
+
+.back-btn{
+    display:inline-block;
+    padding:10px 20px;
+    background:#111111;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    background:#333;
+    transform:translateY(-2px);
+}
+    </style>
+</head>
+<body>
+
+    <h1>Registered Users</h1>
+    <div class="back-btn-container">
+    <a href="javascript:history.back()" class="back-btn">← Back</a>
+</div>
+
+    <div class="user-grid">
+        {% for u in user %}
+            <div class="user-card">
+                <div class="avatar-container">
+                    {% if u.image %}
+                        <img src="{{ u.image.url }}" alt="{{ u.name }}">
+                    {% else %}
+                        <span class="default-avatar">{{ u.name|slice:":1"|upper }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="user-name">{{ u.name }}</div>
+                <div class="user-gender">{{ u.gender }}</div>
+
+                <div class="user-info-group">
+                    <div class="info-item">
+                        <span class="info-label">Email</span>
+                        <span>{{ u.email }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Phone</span>
+                        <span>{{ u.phone }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Address</span>
+                        <span>{{ u.address }}</span>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="empty-state">
+                <p>No registered users found in the system.</p>
+            </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

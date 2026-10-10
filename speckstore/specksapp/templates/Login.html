@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            /* Using a high-quality dress designing/atelier image from Unsplash */
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                        url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1974&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px); /* Modern glassmorphism effect */
+            -webkit-backdrop-filter: blur(10px);
+            padding: 40px 35px;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            color: #222;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            color: #444;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            background-color: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #d4af37; /* Elegant muted gold accent color */
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #222; /* Sleek black button */
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #d4af37; /* Turns to gold on hover */
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            
+            <button type="submit">Sign In</button>
+        </form>
+    </div>
+
+</body>
+</html>

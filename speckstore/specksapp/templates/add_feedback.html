@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write Review</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Premium dress designing atelier background image */
+            background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), 
+                        url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1974&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 550px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px); /* High-end glassmorphism overlay */
+            -webkit-backdrop-filter: blur(12px);
+            padding: 45px 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .title {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            color: #111;
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .product-name {
+            text-align: center;
+            color: #d4af37; /* Luxe gold secondary accent for the item description */
+            font-size: 16px;
+            margin-bottom: 30px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 13px;
+            color: #333;
+            letter-spacing: 0.5px;
+        }
+
+        select,
+        textarea {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1px solid #bbb;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            background-color: rgba(255, 255, 255, 0.95);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 140px;
+        }
+
+        select:focus,
+        textarea:focus {
+            border-color: #d4af37;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.35);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 8px;
+            background: #111; /* Classic bold dark design */
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #d4af37; /* Smooth gold shift on hover interaction */
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+            transform: translateY(-1px);
+        }
+
+        @media(max-width: 480px){
+            .card {
+                padding: 35px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1 class="title">Write a Review</h1>
+
+        <div class="product-name">
+            {{ product.name }}
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="rating">Rating</label>
+                <select id="rating" name="rating" required>
+                    <option value="">Select Rating</option>
+                    <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+                    <option value="4">⭐⭐⭐⭐ (4)</option>
+                    <option value="3">⭐⭐⭐ (3)</option>
+                    <option value="2">⭐⭐ (2)</option>
+                    <option value="1">⭐ (1)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="feedback">Your Feedback</label>
+                <textarea
+                    id="feedback"
+                    name="feedback"
+                    placeholder="Share your experience with this design..."
+                    required></textarea>
+            </div>
+
+            <button type="submit" class="btn">
+                Submit Review
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

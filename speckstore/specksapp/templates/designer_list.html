@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Designer List</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            /* Consistent high-quality boutique backdrop with dark overlay */
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* Unified Glassmorphism Back Button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .back-btn:hover {
+            background: white;
+            color: #333;
+            transform: translateX(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Refined Premium Header Block */
+        .heading {
+            background: rgba(255, 255, 255, 0.96);
+            padding: 30px 35px;
+            border-radius: 20px;
+            margin-bottom: 35px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .heading h1 {
+            color: #2c3e50;
+            font-size: 30px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .heading p {
+            color: #6d597a; /* Muted deep plum secondary text */
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        /* Form / Table Container with High-Contrast Text Layering */
+        .table-container {
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            padding: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: transparent;
+        }
+
+        thead {
+            background: #6d597a; /* Signature muted deep plum brand color */
+            color: white;
+        }
+
+        thead th {
+            padding: 18px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tbody tr {
+            transition: all 0.2s ease;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:nth-child(even) {
+            background: rgba(245, 235, 235, 0.3); /* Subtle boutique tint tint */
+        }
+
+        tbody tr:hover {
+            background: rgba(181, 131, 141, 0.1); /* Signature rose hover tint */
+        }
+
+        tbody td {
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+            color: #333;
+            font-size: 15px;
+            vertical-align: middle;
+        }
+
+        /* Avatar styling for registered designers */
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .profile img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #b5838d; /* Signature theme accent border */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Fallback placeholder for designers without an image */
+        .profile-avatar-placeholder {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            border: 2px solid #b5838d;
+        }
+
+        /* Elegant Action Callout Link & Button */
+        .action-link {
+            text-decoration: none;
+        }
+
+        .action-btn {
+            padding: 9px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #6d597a;
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(109, 89, 122, 0.2);
+        }
+
+        .action-btn:hover {
+            background: #b5838d;
+            box-shadow: 0 4px 14px rgba(181, 131, 141, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 50px 30px;
+            color: #6d597a;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        /* Mobile Responsive Card Layout Transformation */
+        @media (max-width: 992px) {
+            .heading h1 {
+                font-size: 24px;
+            }
+
+            table, thead, tbody, th, td, tr { 
+                display: block; 
+            }
+            
+            thead tr { 
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            
+            tr { 
+                border: 1px solid #eee;
+                border-radius: 16px;
+                margin-bottom: 20px;
+                padding: 12px;
+                background: #fff;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            }
+            
+            td { 
+                border: none;
+                border-bottom: 1px solid #f9f9f9; 
+                position: relative;
+                padding-left: 45%; 
+                text-align: right !important;
+                font-size: 14px;
+                min-height: 45px;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+            }
+
+            td:first-child {
+                justify-content: flex-end;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                background: rgba(109, 89, 122, 0.04);
+                border-radius: 12px 12px 0 0;
+            }
+
+            td:last-child {
+                border-bottom: none;
+                padding-top: 15px;
+                justify-content: center;
+                padding-left: 0;
+            }
+            
+            td:before { 
+                position: absolute;
+                left: 15px;
+                width: 40%; 
+                padding-right: 10px; 
+                white-space: nowrap;
+                text-align: left;
+                font-weight: 600;
+                color: #6d597a;
+                font-size: 12px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            
+            /* Responsive Key Labels */
+            td:nth-of-type(1):before { content: "Designer"; }
+            td:nth-of-type(2):before { content: "Age"; }
+            td:nth-of-type(3):before { content: "Qualification"; }
+            td:nth-of-type(4):before { content: "Gender"; }
+            td:nth-of-type(5):before { content: "Phone"; }
+            td:nth-of-type(6):before { content: "Email"; }
+            td:nth-of-type(7):before { content: ""; }
+
+            .profile {
+                justify-content: flex-end;
+            }
+            
+            .action-btn {
+                width: 100%;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Unified Glassmorphism Back Button -->
+    <a href="javascript:history.back()" class="back-btn">
+        &#8592; Back
+    </a>
+
+    <!-- Brand Header -->
+    <div class="heading">
+        <h1>Designer List</h1>
+        <p>View all registered fashion designers</p>
+    </div>
+
+    <!-- Collection Block -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Qualification</th>
+                    <th>Gender</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for d in designers %}
+                <tr>
+                    <td>
+                        <div class="profile">
+                            {% if d.image %}
+                                <img src="{{ d.image.url }}" alt="{{ d.name }}">
+                            {% else %}
+                                <div class="profile-avatar-placeholder">
+                                    <span>{{ d.name|slice:":1"|upper }}</span>
+                                </div>
+                            {% endif %}
+                            <span>{{ d.name }}</span>
+                        </div>
+                    </td>
+                    <td>{{ d.age }}</td>
+                    <td>{{ d.qualification }}</td>
+                    <td>{{ d.gender }}</td>
+                    <td>{{ d.phone }}</td>
+                    <td>{{ d.email }}</td>
+                   
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="no-data">
+                        No Designers Available
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

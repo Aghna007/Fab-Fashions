@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile | Fashion Studio</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Playfair Display', 'Times New Roman', Times, serif;
+            /* Elegant, desaturated fashion boutique interior background */
+            background: linear-gradient(rgba(20, 20, 20, 0.6), rgba(20, 20, 20, 0.6)), 
+                        url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            width: 480px;
+            border-radius: 4px; /* Classic, sharp luxury look instead of heavy round corners */
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            border: 1px solid #d4af37; /* Subtle metallic gold border */
+        }
+
+        h2 {
+            text-align: center;
+            color: #1a1a1a;
+            margin-bottom: 30px;
+            font-size: 28px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 400;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+            color: #444;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input[type="text"], 
+        input[type="tel"], 
+        input[type="email"], 
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 0px; /* Classic styling */
+            background-color: #fafafa;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #1a1a1a;
+            background-color: #fff;
+        }
+
+        input[readonly] {
+            background-color: #f0f0f0;
+            color: #777;
+            cursor: not-allowed;
+        }
+
+        /* File input specific styling */
+        input[type="file"] {
+            margin-top: 8px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .gender-group {
+            margin-top: 15px;
+            border: 1px solid #eaeaea;
+            padding: 15px;
+            background: #fbfbfb;
+        }
+
+        .gender-title {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .gender-options {
+            display: flex;
+            gap: 20px;
+        }
+
+        .gender-options label {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            cursor: pointer;
+            text-transform: capitalize;
+            font-weight: normal;
+        }
+
+        .gender-options input {
+            margin-right: 8px;
+            accent-color: #1a1a1a; /* Dark sleek radio indicator */
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 30px;
+            border: none;
+            background: #1a1a1a; /* Classic timeless black button */
+            color: white;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #d4af37; /* Elegant gold hover effect */
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Update Profile</h2>
+        <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <label for="name">Name</label>
+    <input
+        type="text"
+        id="name"
+        name="name"
+        value="{{ user.name }}"
+        pattern="[A-Za-z ]+"
+        title="Only letters are allowed"
+        required>
+
+    <label for="address">Address</label>
+    <textarea
+        id="address"
+        name="address"
+        rows="2"
+        required>{{ user.address }}</textarea>
+
+    <label for="phone">Phone Number</label>
+    <input
+        type="text"
+        id="phone"
+        name="phone"
+        value="{{ user.phone }}"
+        maxlength="10"
+        pattern="[0-9]{10}"
+        title="Enter a valid 10 digit phone number"
+        required>
+
+    <label for="email">Email Address</label>
+    <input
+        type="email"
+        id="email"
+        name="email"
+        value="{{ user.email }}"
+        readonly>
+
+    <div class="gender-group">
+
+        <label class="gender-title">Gender</label>
+
+        <div class="gender-options">
+
+            <label>
+                <input type="radio"
+                       name="gender"
+                       value="M"
+                       {% if user.gender == "M" %}checked{% endif %}>
+                Male
+            </label>
+
+            <label>
+                <input type="radio"
+                       name="gender"
+                       value="F"
+                       {% if user.gender == "F" %}checked{% endif %}>
+                Female
+            </label>
+
+            <label>
+                <input type="radio"
+                       name="gender"
+                       value="O"
+                       {% if user.gender == "O" %}checked{% endif %}>
+                Others
+            </label>
+
+        </div>
+
+    </div>
+
+    <label for="image">Profile Image</label>
+
+    <input
+        type="file"
+        id="image"
+        name="image"
+        accept=".jpg,.jpeg,.png">
+
+    <button type="submit">
+        Save Changes
+    </button>
+
+</form>
+    </div> 
+
+</body>
+</html>

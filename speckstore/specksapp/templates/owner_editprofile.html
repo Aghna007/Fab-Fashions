@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            /* Matching clothing boutique background with readability overlay */
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?q=80&w=1920&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        /* Elegant Back Button matching the view profile page */
+        .back-btn {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            font-size: 14px;
+            z-index: 10;
+        }
+
+        .back-btn:hover {
+            background: white;
+            color: #333;
+            transform: translateX(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Polished Profile Card */
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            width: 100%;
+            max-width: 480px;
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 26px;
+            letter-spacing: 0.5px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #b5838d; /* Boutique signature theme color */
+            padding-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            margin-top: 14px;
+            font-weight: 600;
+            color: #6d597a;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Styling Inputs & Textarea */
+        input[type="text"], 
+        input[type="tel"], 
+        input[type="email"], 
+        textarea {
+            width: 100%;
+            padding: 12px 14px;
+            margin-top: 6px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fdfbfb;
+            font-size: 15px;
+            color: #333;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        /* Focus states for active inputs */
+        input:focus, textarea:focus {
+            border-color: #b5838d;
+            box-shadow: 0 0 0 3px rgba(181, 131, 141, 0.2);
+            background: #ffffff;
+        }
+
+        /* Styling Read-Only inputs to look subtly distinct */
+        input[readonly] {
+            background: #f0ecec;
+            color: #777;
+            cursor: not-allowed;
+            border-color: #e2dada;
+        }
+
+        /* Premium file input formatting */
+        input[type="file"] {
+            margin-top: 6px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Boutique Theme Update Button */
+        button[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 8px;
+            background: #6d597a;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(109, 89, 122, 0.3);
+        }
+
+        button[type="submit"]:hover {
+            background: #b5838d;
+            box-shadow: 0 6px 18px rgba(181, 131, 141, 0.4);
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Unified Back Button (Returns back to your profile display page) -->
+<a href="javascript:history.back()" class="back-btn">
+    &#8592; Back
+</a>
+
+<div class="container">
+    <h2>Update Profile</h2>
+    
+    <!-- Added enctype="multipart/form-data" so backend can process the image upload -->
+    <form action="" method="POST" enctype="multipart/form-data">
+
+{% csrf_token %}
+
+<label>Owner Name</label>
+
+<input
+type="text"
+name="name"
+value="{{ user.name }}"
+pattern="[A-Za-z ]+"
+title="Only letters are allowed."
+required>
+
+<label>Shop Name</label>
+
+<input
+type="text"
+name="shop_name"
+value="{{ user.shop_name }}"
+pattern="[A-Za-z0-9 ]+"
+title="Only letters and numbers are allowed."
+required>
+
+<label>Shop Address</label>
+
+<textarea
+name="shop_address"
+rows="3"
+required>{{ user.shop_address }}</textarea>
+
+<label>Place</label>
+
+<input
+type="text"
+name="place"
+value="{{ user.place }}"
+pattern="[A-Za-z ]+"
+title="Only letters are allowed."
+required>
+
+<label>Phone Number</label>
+
+<input
+type="text"
+name="phone"
+value="{{ user.phone }}"
+maxlength="10"
+pattern="[0-9]{10}"
+title="Enter a valid 10 digit phone number."
+required>
+
+<label>Email</label>
+
+<input
+type="email"
+name="email"
+value="{{ user.email }}"
+readonly>
+
+<label>Profile Image</label>
+
+<input
+type="file"
+name="image"
+accept=".jpg,.jpeg,.png">
+
+<button type="submit">
+    Save Changes
+</button>
+
+</form>
+</div> 
+
+</body>
+</html>

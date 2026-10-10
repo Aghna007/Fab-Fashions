@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Feedbacks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Base Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            /* Exactly matching your premium studio background configuration */
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                        url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1974&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        /* Back Button - Classic Black Style shifting to Gold Accent on Hover */
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background: #222;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .back-btn:hover {
+            background: #d4af37;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Serif Title Typography */
+        .heading {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            color: #ffffff;
+            font-size: 3rem;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Frosted Atelier Glass Card Container */
+        .feedback-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feedback-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .feedback-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            padding-bottom: 12px;
+        }
+
+        /* Typography updates for high contrast luxury look */
+        .user-name {
+            color: #222;
+            font-size: 1.15rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .icon {
+            font-size: 24px;
+            color: #d4af37; /* Theming highlight */
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .feedback-text {
+            color: #444;
+            font-size: 15px;
+            line-height: 1.8;
+            letter-spacing: 0.3px;
+        }
+
+        /* Empty state matched directly to your form containers */
+        .empty {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            padding: 60px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #555;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        /* Responsive Breakpoints */
+        @media(max-width: 768px){
+            .heading {
+                font-size: 2.2rem;
+            }
+
+            .feedback-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Back Button pointing to your Django context view -->
+    <a href="{% url 'home' %}" class="back-btn">
+        ← Back to Home
+    </a>
+
+    <h1 class="heading">My Feedbacks</h1>
+
+    {% if feedbacks %}
+
+        {% for feedback in feedbacks %}
+        <div class="feedback-card">
+
+            <div class="feedback-header">
+                <div class="user-name">
+                    {{ feedback.user.name }}
+                </div>
+
+                <div class="icon">
+                    ✨
+                </div>
+            </div>
+
+            <div class="feedback-text">
+                {{ feedback.feedback }}
+            </div>
+
+        </div>
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty">
+            No feedback submitted yet.
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

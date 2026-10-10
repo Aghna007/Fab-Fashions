@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Designer - Customization Requests</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --primary-hover: #e63956;
+            --bg-dark: #1a1a1a;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border-color: #e0e0e0;
+            --success: #2ec4b6;
+            --success-hover: #239b90;
+            --danger: #e63946;
+            --danger-hover: #c92a36;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1974&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        /* Top Navigation Bar */
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 5%;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            gap: 20px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-nav {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            background: #fff;
+        }
+
+        .btn-nav:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Real-time Search Box */
+        .search-container {
+            position: relative;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 10px 20px 10px 45px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            outline: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-container input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 8px rgba(255, 77, 109, 0.2);
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        /* Main Grid Layout */
+        .main-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Profile Sidebar Card */
+        .profile-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+            height: fit-content;
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .profile-img-container {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.2);
+        }
+
+        .profile-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .profile-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        /* Requests Container Card */
+        .list-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .list-card h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .list-card h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        /* Individual Customization Order Item Card */
+        .request-item {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .request-item:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-color: #ccc;
+        }
+
+        .request-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .client-info h4 {
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .client-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .request-date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: #f5f5f5;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .request-body {
+            background: #fafafa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #444;
+            border-left: 3px solid var(--primary);
+        }
+
+        /* Action Buttons Grid */
+        .action-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-action {
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn-approve {
+            background: var(--success);
+            color: white;
+            border: 1px solid var(--success);
+        }
+
+        .btn-approve:hover {
+            background: var(--success-hover);
+            box-shadow: 0 4px 12px rgba(46, 196, 182, 0.2);
+        }
+
+        .btn-reject {
+            background: #fff;
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .btn-reject:hover {
+            background: var(--danger);
+            color: white;
+            box-shadow: 0 4px 12px rgba(230, 57, 70, 0.2);
+        }
+
+        /* Status Tags */
+        .status-badge {
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-approved {
+            background: #e6f9f7;
+            color: var(--success);
+        }
+
+        .status-rejected {
+            background: #ffebee;
+            color: var(--danger);
+        }
+
+        /* Empty state styling */
+        .empty-message {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 40px 0;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="nav-header">
+        <div class="nav-left">
+            <a href="/owner_home/" class="btn-nav" title="Back">
+                <i class="fa-solid fa-arrow-left"></i> Back
+            </a>
+        </div>
+
+        <div class="search-container">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Search by details or dates...">
+        </div>
+    </header>
+
+    <main class="main-container">
+        
+        <section class="profile-card">
+            <div class="profile-img-container">
+                {% if user.image %}
+                    <img src="{{ user.image.url }}" alt="{{ user.name }}">
+                {% else %}
+                    <img src="https://ui-avatars.com/api/?name={{ user.name }}&background=ff4d6d&color=fff&size=128" alt="Designer Profile">
+                {% endif %}
+            </div>
+            <h3>{{ user.name }}</h3>
+            <p><i class="fa-solid fa-id-badge"></i> {{ user.qualification|default:"Shop Owner" }}</p>
+            
+            <div class="info-divider"></div>
+            
+            <div class="info-row">
+                <span>Email:</span>
+                <span>{{ user.email }}</span>
+            </div>
+        </section>
+
+        <section class="list-card">
+            <h2>Assigned Customizations</h2>
+            <div id="requestsList" style="margin-top: 25px;">
+                
+                {% for item in custom %}
+                    <div class="request-item">
+                        <div class="request-header">
+                            <div class="client-info">
+                                <h4>{{ item.user.name }}</h4>
+                                <p><i class="fa-regular fa-envelope"></i> Assigned Workfile</p>
+                            </div>
+                            <div class="request-date">
+                                <i class="fa-regular fa-calendar-days"></i> {{ item.created_at|date:"M d, Y" }}
+                            </div>
+                        </div>
+
+                        <div class="request-body">
+                            {{ item.messege }}
+                        </div>
+
+                       
+                    </div>
+                {% empty %}
+                    <p class="empty-message">No custom styling instructions has been received yet.</p>
+                {% endfor %}
+
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            const filterValue = this.value.toLowerCase().trim();
+            const requestItems = document.querySelectorAll('.request-item');
+            
+            requestItems.forEach(function(item) {
+                // Extracts data text found in messages, IDs or date labels inside card arrays
+                const textContent = item.textContent.toLowerCase();
+                
+                if (textContent.includes(filterValue)) {
+                    item.style.display = ""; // Shows item if matching
+                } else {
+                    item.style.display = "none"; // Hides item if unmatched
+                }
+            });
+        });
+    </script>
+</body>
+</html>

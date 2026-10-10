@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order List</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            /* Consistent high-quality boutique backdrop with dark overlay */
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* Unified Glassmorphism Back Button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .back-btn:hover {
+            background: white;
+            color: #333;
+            transform: translateX(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Modernized Header Block */
+        .header-box {
+            background: rgba(255, 255, 255, 0.96);
+            padding: 25px 35px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .header-box h1 {
+            color: #2c3e50;
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #b5838d; /* Signature theme accent line */
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        /* Responsive Table Container with Custom Glass Blur */
+        .table-responsive {
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            padding: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: transparent;
+        }
+
+        th {
+            background: #6d597a; /* Muted deep plum brand header color */
+            color: white;
+            padding: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            text-align: left;
+        }
+
+        /* Aligning specific text items gracefully */
+        th:nth-child(3), td:nth-child(3),
+        th:nth-child(4), td:nth-child(4),
+        th:nth-child(5), td:nth-child(5),
+        th:nth-child(6), td:nth-child(6) {
+            text-align: center;
+        }
+
+        td {
+            padding: 18px 16px;
+            color: #444;
+            font-size: 15px;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: #fdfbfb;
+        }
+
+        /* Elegant product thumbnail structure */
+        .product-img {
+            width: 70px;
+            height: 85px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .customer-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .product-title {
+            font-weight: 500;
+            color: #6d597a;
+        }
+
+        .price-tag {
+            font-weight: 700;
+            color: #b5838d;
+            font-size: 16px;
+        }
+
+        /* Universal Elegant Status Badges */
+        .status-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        /* Context fallback design if no orders are present */
+        .empty-state {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            color: #2c3e50;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            margin: 40px auto;
+        }
+
+        /* Mobile Breakpoint Card Transformation */
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr { 
+                display: block; 
+            }
+            
+            thead tr { 
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            
+            tr { 
+                border: 1px solid #eee;
+                border-radius: 12px;
+                margin-bottom: 15px;
+                padding: 10px;
+                background: #fff;
+            }
+            
+            td { 
+                border: none;
+                border-bottom: 1px solid #f9f9f9; 
+                position: relative;
+                padding-left: 50%; 
+                text-align: right !important;
+                font-size: 14px;
+            }
+
+            td:last-child {
+                border-bottom: none;
+            }
+            
+            td:before { 
+                position: absolute;
+                top: 18px;
+                left: 15px;
+                width: 45%; 
+                padding-right: 10px; 
+                white-space: nowrap;
+                text-align: left;
+                font-weight: 600;
+                color: #6d597a;
+                font-size: 12px;
+                text-transform: uppercase;
+            }
+            
+            /* Setting up mobile row responsive labels */
+            td:nth-of-type(1):before { content: "Customer"; }
+            td:nth-of-type(2):before { content: "Product"; }
+            td:nth-of-type(3):before { content: "Image"; }
+            td:nth-of-type(4):before { content: "Quantity"; }
+            td:nth-of-type(5):before { content: "Total Price"; }
+            td:nth-of-type(6):before { content: "Status"; }
+            td:nth-of-type(7):before { content: "Date"; }
+
+            .product-img {
+                width: 55px;
+                height: 65px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <a href="javascript:history.back()" class="back-btn">
+        &#8592; Back
+    </a>
+
+    <div class="header-box">
+        <h1>Order Management</h1>
+    </div>
+
+    {% if orders %}
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Product</th>
+                    <th>Image</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in orders %}
+                <tr>
+                    <td class="customer-name">{{ i.user.name }}</td>
+                    <td class="product-title">{{ i.products.name }}</td>
+                    <td>
+                        {% if i.products.image %}
+                            <img src="{{ i.products.image.url }}" class="product-img" alt="Garment item">
+                        {% else %}
+                            <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=150&auto=format&fit=crop" class="product-img" alt="Placeholder">
+                        {% endif %}
+                    </td>
+                    <td>{{ i.quantity }}</td>
+                    <td class="price-tag">₹{{ i.total_price }}</td>
+                    <td>
+                        <span class="status-badge">{{ i.status }}</span>
+                    </td>
+                    <td>{{ i.ordered_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <h2>No Orders Received Yet</h2>
+        <p style="color: #666; margin-top: 8px;">Once customers purchase products from your shop, their entries will show up here.</p>
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

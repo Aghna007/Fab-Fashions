@@ -1,0 +1,291 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Base Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            /* Exactly matching your requested premium studio background configuration */
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                        url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1974&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            padding: 40px 8%;
+        }
+
+        /* Back Button - Classic Black Style shifting to Gold Accent */
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background: #222;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .back-btn:hover {
+            background: #d4af37;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Page Title matching your typography theme */
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            color: #ffffff;
+            font-size: 3rem;
+            margin-bottom: 50px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .page-title span {
+            color: #d4af37; /* Gold accent choice instead of generic blue */
+        }
+
+        /* Orders Grid Layout */
+        .orders-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        /* Frosted Atelier Glass Card Container */
+        .order-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .order-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .order-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-bottom: 2px solid #222;
+        }
+
+        .order-details {
+            padding: 25px;
+        }
+
+        .order-details h3 {
+            font-family: 'Playfair Display', serif;
+            color: #222;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .order-details p {
+            color: #555;
+            margin-bottom: 10px;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding-bottom: 6px;
+        }
+
+        .order-details p:last-of-type {
+            border-bottom: none;
+        }
+
+        .order-details strong {
+            color: #222;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        /* Premium Price Label Styling */
+        .price {
+            font-size: 20px !important;
+            color: #222 !important;
+            font-weight: 600 !important;
+            margin-top: 15px;
+            border-bottom: none !important;
+        }
+
+        /* Status Badge - Luxury Minimalist Style */
+        .status {
+            margin-top: 20px;
+            display: inline-block;
+            background: #222;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 1px solid #d4af37;
+        }
+
+        /* Empty State Layout aligned with the theme */
+        .empty-orders {
+            grid-column: 1 / -1;
+            width: 100%;
+            max-width: 650px;
+            margin: 50px auto;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .empty-orders h2 {
+            font-family: 'Playfair Display', serif;
+            color: #222;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .empty-orders p {
+            color: #555;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        .shop-btn {
+            display: inline-block;
+            text-decoration: none;
+            background: #222;
+            color: white;
+            padding: 14px 30px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .shop-btn:hover {
+            background: #d4af37;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Responsive Breakpoints */
+        @media(max-width: 768px) {
+            body {
+                padding: 25px;
+            }
+
+            .page-title {
+                font-size: 2.2rem;
+            }
+
+            .order-card img {
+                height: 220px;
+            }
+            
+            .orders-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="{% url 'home' %}" class="back-btn">
+        ← Back
+    </a>
+
+    <h1 class="page-title">
+        My <span>Orders</span>
+    </h1>
+
+    <div class="orders-container">
+
+        {% for order in orders %}
+        <div class="order-card">
+
+            {% if order.products.image %}
+                <img src="{{ order.products.image.url }}" alt="{{ order.products.name }}">
+            {% endif %}
+
+            <div class="order-details">
+
+                <h3>{{ order.products.name }}</h3>
+
+                <p>
+                    <strong>Size</strong>
+                    <span>{{ order.products.size }}</span>
+                </p>
+
+                <p>
+                    <strong>Quantity</strong>
+                    <span>{{ order.quantity }}</span>
+                </p>
+
+                <p>
+                    <strong>Total Price</strong>
+                    <span>₹{{ order.total_price }}</span>
+                </p>
+
+                <p class="price">
+                    <strong>Price Each</strong>
+                    <span>₹{{ order.products.price }}</span>
+                </p>
+
+                <div class="status">
+                    ✓ Order Placed Successfully
+                </div>
+
+            </div>
+        </div>
+        {% empty %}
+        <div class="empty-orders">
+            <h2>No Orders Yet</h2>
+            <p>You haven't placed any orders yet.</p>
+            <a href="{% url 'productlist_user' %}" class="shop-btn">
+                Start Shopping
+            </a>
+        </div>
+        {% endfor %}
+
+    </div>
+
+</body>
+</html>

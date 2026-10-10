@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wishlist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Base Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            /* Exactly matching your premium studio background configuration */
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                        url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1974&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            padding: 40px 8%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* Back Button - Classic Black Style shifting to Gold Accent on Hover */
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background: #222;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .back-btn:hover {
+            background: #d4af37;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Serif Title Typography */
+        .title {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            color: #ffffff;
+            font-size: 3rem;
+            margin-bottom: 50px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Grid Layout */
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        /* Frosted Atelier Glass Card Container */
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .card img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            border-bottom: 2px solid #222;
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        /* Product Typography updates */
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: #222;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        /* High contrast luxury price element */
+        .price {
+            color: #222;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Action button shifting to elegant gold */
+        .btn {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            background: #222;
+            color: white;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #d4af37;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Empty State Matched Viewport */
+        .empty {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            padding: 60px;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: 500;
+            color: #555;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 650px;
+            margin: 80px auto;
+            letter-spacing: 0.5px;
+        }
+
+        /* Responsive Breakpoints */
+        @media(max-width: 768px){
+            body {
+                padding: 25px;
+            }
+
+            .title {
+                font-size: 2.2rem;
+            }
+
+            .card img {
+                height: 260px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Back to Home Button added -->
+    <a href="{% url 'home' %}" class="back-btn">
+        ← Back to Home
+    </a>
+
+    <h1 class="title">My Wishlist</h1>
+
+    {% if wishlist %}
+    <div class="wishlist-grid">
+
+        {% for item in wishlist %}
+        <div class="card">
+
+            <img src="{{ item.product.image.url }}" alt="Product">
+
+            <div class="card-content">
+
+                <h3 class="product-name">
+                    {{ item.product.name }}
+                </h3>
+
+                <div class="price">
+                    ₹{{ item.product.price }}
+                </div>
+
+                <a href="/product_detail/{{ items.product.id }}/" class="btn">
+                    View Product
+                </a>
+
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+        <div class="empty">
+            No products in your wishlist yet. ✨
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

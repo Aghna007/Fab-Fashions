@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Success</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Premium dress designing atelier background image */
+            background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), 
+                        url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1974&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            padding: 20px;
+        }
+
+        /* Success Card */
+        .success-card {
+            width: 100%;
+            max-width: 520px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px); /* Luxury glassmorphism overlay */
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            padding: 55px 40px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            animation: fadeUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) ease;
+        }
+
+        /* Premium Check Icon */
+        .check {
+            width: 90px;
+            height: 90px;
+            margin: auto;
+            border-radius: 50%;
+            background: #d4af37; /* Signature Gold Accent */
+            color: #ffffff;
+            font-size: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            animation: pulse 2.5s infinite ease-in-out;
+        }
+
+        /* Heading */
+        .success-card h1 {
+            font-family: 'Playfair Display', serif;
+            color: #ffffff;
+            margin-top: 30px;
+            margin-bottom: 12px;
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+        }
+
+        /* Subtitle Brand Line */
+        .brand-line {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #d4af37;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        /* Message Box */
+        .success-card p {
+            color: #cbd5e1;
+            line-height: 1.8;
+            font-size: 15px;
+            font-weight: 300;
+            margin-bottom: 35px;
+        }
+
+        .success-card p strong {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        /* Navigation Button */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            padding: 14px 35px;
+            background: #ffffff;
+            color: #111111;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #d4af37;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Fluid Animation Presets */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 35px rgba(212, 175, 55, 0.6);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            }
+        }
+
+        /* Responsive Optimization Rules */
+        @media(max-width:600px){
+            .success-card {
+                padding: 45px 25px;
+            }
+
+            .success-card h1 {
+                font-size: 1.8rem;
+            }
+
+            .check {
+                width: 80px;
+                height: 80px;
+                font-size: 35px;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="success-card">
+
+    <div class="check">✓</div>
+
+    <h1>Order Placed!</h1>
+    <div class="brand-line">Atelier Confirmation</div>
+
+    <p>
+        Thank you, <strong>{{ user.name }}</strong>.<br>
+        Your premium commission has been saved and will be designed shortly.
+    </p>
+
+    <a href="{% url 'home' %}" class="btn">
+        Continue Shopping
+    </a>
+
+</div>
+
+</body>
+</html>

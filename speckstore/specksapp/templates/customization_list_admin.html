@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customization Requests</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+            background:url('https://images.unsplash.com/photo-1445205170230-053b83016050?w=1600')
+            no-repeat center center/cover;
+            padding:30px;
+        }
+
+        .container{
+            width:95%;
+            max-width:1400px;
+            margin:auto;
+            background:rgba(255,255,255,0.30);
+            backdrop-filter:blur(18px);
+            border-radius:20px;
+            padding:30px;
+            box-shadow:0 10px 35px rgba(0,0,0,0.4);
+        }
+
+        .header{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:25px;
+            flex-wrap:wrap;
+            gap:15px;
+        }
+
+        .title{
+            color:#111;
+            font-size:38px;
+            font-weight:800;
+            text-shadow:1px 1px 4px rgba(255,255,255,0.8);
+        }
+
+        .back-btn{
+            text-decoration:none;
+            background:#111;
+            color:white;
+            padding:12px 25px;
+            border-radius:30px;
+            font-size:15px;
+            font-weight:700;
+            transition:.3s;
+        }
+
+        .back-btn:hover{
+            background:#e91e63;
+            transform:translateY(-2px);
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            overflow:hidden;
+            border-radius:15px;
+        }
+
+        thead{
+            background:rgba(0,0,0,0.85);
+        }
+
+        thead th{
+            color:white;
+            padding:18px;
+            font-size:17px;
+            font-weight:700;
+        }
+
+        tbody tr{
+            background:rgba(255,255,255,0.75);
+            transition:0.3s;
+        }
+
+        tbody tr:hover{
+            background:rgba(255,255,255,0.95);
+        }
+
+        tbody td{
+            color:#111;
+            font-weight:700;
+            padding:15px;
+            text-align:center;
+            border-bottom:1px solid rgba(0,0,0,0.15);
+        }
+
+        .message-box{
+            max-width:280px;
+            word-wrap:break-word;
+            font-weight:700;
+        }
+
+        .approved{
+            background:#28a745;
+            color:white;
+            padding:8px 18px;
+            border-radius:20px;
+            font-size:14px;
+            font-weight:700;
+        }
+
+        .rejected{
+            background:#dc3545;
+            color:white;
+            padding:8px 18px;
+            border-radius:20px;
+            font-size:14px;
+            font-weight:700;
+        }
+
+        .pending{
+            background:#ffc107;
+            color:black;
+            padding:8px 18px;
+            border-radius:20px;
+            font-size:14px;
+            font-weight:700;
+        }
+
+        .empty{
+            text-align:center;
+            color:#111;
+            font-weight:800;
+            padding:25px;
+        }
+
+        @media(max-width:768px){
+
+            .header{
+                flex-direction:column;
+                text-align:center;
+            }
+
+            .title{
+                font-size:28px;
+            }
+
+            table{
+                font-size:13px;
+            }
+
+            thead th,
+            tbody td{
+                padding:10px;
+            }
+
+            .back-btn{
+                width:100%;
+                text-align:center;
+            }
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1 class="title">
+            Fashion Customization Requests
+        </h1>
+
+        <a href="{% url 'adminhome' %}" class="back-btn">
+            ←  Home
+        </a>
+
+    </div>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Designer</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th>Requested Date</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for i in customize %}
+            <tr>
+
+                <td>{{ i.id }}</td>
+
+                <td>{{ i.user.name }}</td>
+
+                <td>{{ i.employee.name }}</td>
+
+                <td class="message-box">
+                    {{ i.messege }}
+                </td>
+
+                <td>
+
+                    {% if i.approved_at %}
+                        <span class="approved">Approved</span>
+
+                    {% elif i.rejected_at %}
+                        <span class="rejected">Rejected</span>
+
+                    {% else %}
+                        <span class="pending">Pending</span>
+
+                    {% endif %}
+
+                </td>
+
+                <td>
+                    {{ i.created_at|date:"d M Y" }}
+                </td>
+
+            </tr>
+
+            {% empty %}
+
+            <tr>
+                <td colspan="6" class="empty">
+                    No Customization Requests Found
+                </td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+</html>
+```

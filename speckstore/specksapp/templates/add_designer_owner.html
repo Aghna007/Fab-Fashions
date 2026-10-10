@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Designer</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            /* Consistent high-quality boutique backdrop with dark overlay */
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        /* Unified Glassmorphism Back Button */
+        .back-btn {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            font-size: 14px;
+            z-index: 10;
+        }
+
+        .back-btn:hover {
+            background: white;
+            color: #333;
+            transform: translateX(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Card Container matching the unified brand look */
+        .container {
+            width: 100%;
+            max-width: 550px;
+        }
+
+        .form-box {
+            background: rgba(255, 255, 255, 0.96);
+            padding: 40px 35px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+        }
+
+        .form-box h2 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 26px;
+            letter-spacing: 0.5px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #b5838d; /* Signature theme accent color */
+            padding-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #6d597a; /* Muted deep plum label text */
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            background: #fdfbfb;
+            color: #333;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        /* Interactive Focus Highlights */
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: #b5838d;
+            box-shadow: 0 0 0 3px rgba(181, 131, 141, 0.2);
+            background: #ffffff;
+        }
+
+        /* Two-Column Responsive Grid Row */
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        /* Polished CTA Button */
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            background: #6d597a;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            box-shadow: 0 4px 12px rgba(109, 89, 122, 0.3);
+        }
+
+        .btn:hover {
+            background: #b5838d;
+            box-shadow: 0 6px 18px rgba(181, 131, 141, 0.4);
+            transform: translateY(-1px);
+        }
+
+        /* Mobile Adjustments */
+        @media(max-width: 768px) {
+            .row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .form-box {
+                padding: 30px 20px;
+            }
+
+            .form-box h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<a href="javascript:history.back()" class="back-btn">
+    &#8592; Back
+</a>
+
+<div class="container">
+    <div class="form-box">
+
+        <h2>Add Designer</h2>
+
+        <form method="POST">
+
+{% csrf_token %}
+
+<div class="input-group">
+
+<label>Designer Name</label>
+
+<input
+type="text"
+name="name"
+placeholder="Enter Designer Name"
+pattern="[A-Za-z ]+"
+title="Only letters are allowed."
+required>
+
+</div>
+
+<div class="row">
+
+<div class="input-group">
+
+<label>Age</label>
+
+<input
+type="number"
+name="age"
+min="18"
+max="60"
+placeholder="Enter Age"
+required>
+
+</div>
+
+<div class="input-group">
+
+<label>Gender</label>
+
+<select name="gender" required>
+
+<option value="">Select Gender</option>
+
+<option value="Male">Male</option>
+
+<option value="Female">Female</option>
+
+<option value="Other">Other</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="input-group">
+
+<label>Qualification</label>
+
+<input
+type="text"
+name="qualification"
+placeholder="Enter Qualification"
+pattern="[A-Za-z .]+"
+title="Only letters are allowed."
+required>
+
+</div>
+
+<div class="input-group">
+
+<label>Phone Number</label>
+
+<input
+type="text"
+name="phone"
+maxlength="10"
+pattern="[0-9]{10}"
+title="Enter a valid 10 digit phone number."
+required>
+
+</div>
+
+<div class="input-group">
+
+<label>Email Address</label>
+
+<input
+type="email"
+name="email"
+placeholder="Enter Email Address"
+required>
+
+</div>
+
+<div class="input-group">
+
+<label>Password</label>
+
+<input
+type="password"
+name="password"
+minlength="8"
+placeholder="Create Password"
+required>
+
+</div>
+
+<button type="submit" class="btn">
+
+Add Designer
+
+</button>
+
+</form>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Customization</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --primary-hover: #e63956;
+            --bg-dark: #1a1a1a;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: 
+                        url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1974&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        /* Top Navigation Bar */
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 5%;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .btn-nav {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            background: #fff;
+        }
+
+        .btn-nav:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Main Grid Layout */
+        .main-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Profile Sidebar Card */
+        .profile-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+            height: fit-content;
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .profile-img-container {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.2);
+        }
+
+        .profile-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .profile-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .info-divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 15px 0;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        .info-row span:first-child {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .info-row span:last-child {
+            font-weight: 600;
+        }
+
+        /* Form Container */
+        .form-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .form-card h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .form-card h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .section-label {
+            display: block;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #222;
+        }
+
+        /* Radio Grid Format for Designers */
+        .designer-radio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .designer-option {
+            position: relative;
+        }
+
+        .designer-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .designer-box {
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            background: #fff;
+        }
+
+        .designer-box .icon-avatar {
+            background: #fff0f2;
+            color: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .designer-info h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .designer-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Checked State Styling */
+        .designer-option input[type="radio"]:checked + .designer-box {
+            border-color: var(--primary);
+            background: #fff5f6;
+            box-shadow: 0 4px 12px rgba(255, 77, 109, 0.15);
+        }
+
+        .designer-option input[type="radio"]:checked + .designer-box .icon-avatar {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* Textarea customization */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.3s ease;
+            background: #fafafa;
+        }
+
+        textarea:focus {
+            border-color: var(--primary);
+            background: #fff;
+        }
+
+        /* Action Button */
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+        }
+
+        .btn-submit:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 77, 109, 0.4);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="nav-header">
+        <a href="/home/" class="btn-nav">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <a href="/mycustomizationlist/" class="btn-nav">
+            <i class="fa-solid fa-list-ul"></i> My List
+        </a>
+    </header>
+
+    <main class="main-container">
+        
+        <section class="profile-card">
+            <div class="profile-img-container">
+                {% if user.image %}
+                    <img src="{{ user.image.url }}" alt="{{ user.name }}">
+                {% else %}
+                    <img src="https://ui-avatars.com/api/?name={{ user.name }}&background=ff4d6d&color=fff&size=128" alt="User Profile">
+                {% endif %}
+            </div>
+            <h3>{{ user.name|default:"Client User" }}</h3>
+            <p><i class="fa-regular fa-envelope"></i> {{ user.email }}</p>
+            
+            <div class="info-divider"></div>
+            
+            <div class="info-row">
+                <span>Phone:</span>
+                <span>{{ user.phone|default:"N/A" }}</span>
+            </div>
+            <div class="info-row">
+                <span>Gender:</span>
+                <span>{{ user.get_gender_display|default:"N/A" }}</span>
+            </div>
+        </section>
+
+        <section class="form-card">
+            <h2>Customization Request</h2>
+            
+            <form method="POST" id="customizationForm">
+                {% csrf_token %}
+
+                <label class="section-label">Select Your Expert Designer</label>
+                <div class="designer-radio-grid">
+                    {% for d in designers %}
+                        <label class="designer-option">
+                            <input type="radio" name="employee" value="{{ d.id }}" required>
+                            <div class="designer-box">
+                                <div class="icon-avatar">
+                                    <i class="fa-solid fa-scissors"></i>
+                                </div>
+                                <div class="designer-info">
+                                    <h4>{{ d.name }}</h4>
+                                    <p>{{ d.qualification|default:"Fashion Designer" }}</p>
+                                </div>
+                            </div>
+                        </label>
+                    {% empty %}
+                        <p style="color: var(--text-muted); grid-column: 1/-1;">No professional designers available at the moment.</p>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    <label class="section-label" for="messege">Your Style Instructions & Requirements</label>
+                    <textarea 
+                        name="messege" 
+                        id="messege" 
+                        rows="6" 
+                        placeholder="Describe your design patterns, dimensions, colors, and specific choices clearly..." 
+                        required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <i class="fa-regular fa-paper-plane"></i> Send Design Request
+                </button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        document.getElementById('customizationForm').addEventListener('submit', function(e) {
+            const selectedDesigner = document.querySelector('input[name="employee"]:checked');
+            const messageVal = document.getElementById('messege').value.trim();
+
+            if (!selectedDesigner) {
+                e.preventDefault();
+                alert('Please select a designer before submitting your request.');
+                return false;
+            }
+            if (messageVal.length < 10) {
+                e.preventDefault();
+                alert('Please add a detailed description of your request (minimum 10 characters).');
+                return false;
+            }
+        });
+    </script>
+</body>
+</html>

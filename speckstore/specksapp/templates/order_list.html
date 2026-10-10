@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order List</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            /* Premium boutique clothing background matching the rest of your app */
+            background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), 
+                        url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1250px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+
+        /* Sleek Premium Back Button Setup */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 12px 24px;
+            background: #111111;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+            background: #333333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 35px;
+            color: #111111;
+            font-weight: 600;
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Clean, Modern Table Styling */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffff;
+            text-align: left;
+        }
+
+        thead {
+            background: #111111; /* Sleek retail black header */
+            color: white;
+        }
+
+        th {
+            padding: 18px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #334155;
+            font-size: 15px;
+        }
+
+        tbody tr {
+            transition: all 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background-color: #f8fafc;
+            transform: scale(1.002);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Bold formatting for IDs and Currency */
+        .order-id {
+            font-weight: 700;
+            color: #64748b;
+        }
+
+        .total-price {
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        /* Redesigned Pill Badges for Statuses */
+        .status {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        .pending {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .delivered {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .cancelled {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        @media(max-width: 992px) {
+            .container {
+                padding: 20px;
+            }
+            
+            table {
+                min-width: 850px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="/adminhome/" class="back-btn">← Back to Home</a>
+    
+    <h1>📦 Order List</h1>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>User</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for o in order %}
+                <tr>
+                    <td class="order-id">#{{ o.id }}</td>
+                    <td><strong>{{ o.user.name }}</strong></td>
+                    <td>{{ o.products.name }}</td>
+                    <td>{{ o.quantity }}</td>
+                    <td class="total-price">₹{{ o.total_price }}</td>
+                    <td>{{ o.ordered_date }}</td>
+
+                    <td>
+                        {% if o.status == 'Delivered' %}
+                            <span class="status delivered">
+                                {{ o.status }}
+                            </span>
+                        {% elif o.status == 'Cancelled' %}
+                            <span class="status cancelled">
+                                {{ o.status }}
+                            </span>
+                        {% else %}
+                            <span class="status pending">
+                                {{ o.status }}
+                            </span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="empty">
+                        No Orders Available
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

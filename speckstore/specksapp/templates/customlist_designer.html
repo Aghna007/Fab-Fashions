@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Designer Studio &mdash; Customization Pipeline</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --primary-hover: #e63956;
+            --primary-light: #fff0f2;
+            --bg-dark: #1a1a1a;
+            --text-main: #2b2b2b;
+            --text-muted: #777777;
+            --border-color: #eaeaea;
+            --success: #2ec4b6;
+            --success-light: #e6f9f7;
+            --danger: #e63946;
+            --danger-light: #ffebee;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.06);
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1974&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 60px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Top Navigation Header Layer */
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 14px 4%;
+            box-shadow: 0 1px 20px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 0.3px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 9px 20px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            background: #ffffff;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-back:hover {
+            background: var(--bg-dark);
+            color: #ffffff;
+            border-color: var(--bg-dark);
+            transform: translateX(-3px);
+        }
+
+        /* Streamlined Search Bar Bar Element */
+        .search-wrapper {
+            position: relative;
+            max-width: 380px;
+            width: 100%;
+        }
+
+        .search-wrapper input {
+            width: 100%;
+            padding: 11px 20px 11px 46px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            outline: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+            background: #ffffff;
+            transition: all 0.25s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .search-wrapper input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(255, 77, 109, 0.12);
+        }
+
+        .search-wrapper i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            transition: color 0.25s ease;
+        }
+        
+        .search-wrapper input:focus + i {
+            color: var(--primary);
+        }
+
+        /* Layout Architecture Grid */
+        .main-container {
+            max-width: 1240px;
+            margin: 40px auto 0;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 35px;
+            align-items: start;
+        }
+
+        @media (max-width: 992px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                margin: 20px auto 0;
+                gap: 25px;
+            }
+        }
+
+        /* Profile Sidebar Deck */
+        .profile-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 35px 25px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .profile-avatar-box {
+            width: 105px;
+            height: 105px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid #ffffff;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+
+        .profile-avatar-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .profile-card .designer-tag {
+            font-size: 0.78rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: var(--primary-light);
+            padding: 4px 14px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 25px;
+        }
+
+        .info-divider {
+            height: 1px;
+            background: linear-gradient(to right, rgba(0,0,0,0.01), var(--border-color), rgba(0,0,0,0.01));
+            margin: 20px 0;
+        }
+
+        .profile-meta-row {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            gap: 6px;
+            padding: 0 10px;
+        }
+        
+        .profile-meta-row label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .profile-meta-row span {
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--text-main);
+            word-break: break-all;
+        }
+
+        /* Pipeline Workdesk Container */
+        .pipeline-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(0, 0, 0, 0.01);
+        }
+
+        @media (max-width: 576px) {
+            .pipeline-card {
+                padding: 24px;
+            }
+        }
+
+        .pipeline-card h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin-bottom: 30px;
+            color: #111111;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pipeline-card h2::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 24px;
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        /* Modularized Pipeline Item Feed Element */
+        .request-item {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            margin-bottom: 20px;
+            background: #ffffff;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .request-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.04);
+            border-color: #dcdcdc;
+        }
+
+        .request-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 16px;
+        }
+
+        .client-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+
+        .client-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .request-timestamp {
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            background: #f7f7f7;
+            padding: 5px 14px;
+            border-radius: 30px;
+            border: 1px solid #f0f0f0;
+        }
+
+        .request-body {
+            background: #fafafa;
+            padding: 18px 20px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #444444;
+            border-left: 3px solid var(--primary);
+        }
+
+        /* Fine-Tuned Action Systems */
+        .action-row {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-action {
+            padding: 9px 22px;
+            border-radius: var(--radius-sm);
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.3px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn-approve {
+            background: var(--success);
+            color: #ffffff;
+            border: 1px solid var(--success);
+        }
+
+        .btn-approve:hover {
+            background: var(--success-hover);
+            border-color: var(--success-hover);
+            box-shadow: 0 4px 12px rgba(46, 196, 182, 0.25);
+        }
+
+        .btn-reject {
+            background: #ffffff;
+            color: var(--danger);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-reject:hover {
+            background: var(--danger);
+            color: #ffffff;
+            border-color: var(--danger);
+            box-shadow: 0 4px 12px rgba(230, 57, 70, 0.2);
+        }
+
+        /* State Badges */
+        .status-badge {
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        .status-approved {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .status-rejected {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+
+        .empty-message {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 60px 20px;
+            font-size: 0.95rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .empty-message i {
+            font-size: 2.5rem;
+            color: #dbdbdb;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation Layout -->
+    <header class="nav-header">
+        <a href="/designer_home/" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Studio Home
+        </a>
+
+        <!-- Premium Real-time Live Filter Input Box -->
+        <div class="search-wrapper">
+            <input type="text" id="searchInput" placeholder="Filter requests by instructions or dynamic details...">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+    </header>
+
+    <!-- Content Deck Configuration -->
+    <main class="main-container">
+        
+        <!-- Profile Side Card Panel Section -->
+        <section class="profile-card">
+            <div class="profile-avatar-box">
+                {% if user.image %}
+                    <img src="{{ user.image.url }}" alt="{{ user.name }}">
+                {% else %}
+                    <img src="https://ui-avatars.com/api/?name={{ user.name }}&background=ff4d6d&color=fff&size=150" alt="Designer Avatar">
+                {% endif %}
+            </div>
+            <h3>{{ user.name }}</h3>
+            <span class="designer-tag">{{ user.qualification|default:"Couturier Designer" }}</span>
+            
+            <div class="info-divider"></div>
+            
+            <div class="profile-meta-row">
+                <label>Studio Identity</label>
+                <span>{{ user.email }}</span>
+            </div>
+        </section>
+
+        <!-- Main Orders Workdesk Tracking Component -->
+        <section class="pipeline-card">
+            <h2>Order Requests Pipeline</h2>
+            
+            <div id="requestsList">
+                {% for item in custom %}
+                    <div class="request-item">
+                        <div class="request-header">
+                            <div class="client-info">
+                                <h4>Assignment ID #{{ item.id }}</h4>
+                                <p><i class="fa-regular fa-folder-open"></i> Standard Specification Dossier</p>
+                            </div>
+                            <div class="request-timestamp">
+                                <i class="fa-regular fa-clock"></i> {{ item.created_at|date:"M d, Y" }}
+                            </div>
+                        </div>
+
+                        <!-- Main instruction block targeted during user filter lookup -->
+                        <div class="request-body">
+                            {{ item.messege }}
+                        </div>
+
+                        <div class="action-row">
+                            {% if not item.approved_at and not item.rejected_at %}
+                                <a href="/approve_customization_designer/{{ item.id }}/" class="btn-action btn-approve">
+                                    <i class="fa-solid fa-check"></i> Accept Project
+                                </a>
+                                <a href="/reject_customization_designer/{{ item.id }}/" class="btn-action btn-reject">
+                                    <i class="fa-solid fa-xmark"></i> Decline
+                                </a>
+                            {% elif item.approved_at %}
+                                <span class="status-badge status-approved">
+                                    <i class="fa-solid fa-circle-check"></i> Approved & Active
+                                </span>
+                            {% elif item.rejected_at %}
+                                <span class="status-badge status-rejected">
+                                    <i class="fa-solid fa-circle-xmark"></i> Declined
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="empty-message">
+                        <i class="fa-solid fa-bezier-curve"></i>
+                        <p>No design configurations are currently allocated to your workdesk pipeline.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+
+    <!-- Client-Side Real-Time Filter Performance Engine -->
+    <script>
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const query = this.value.toLowerCase().trim();
+            const items = document.querySelectorAll('.request-item');
+            
+            items.forEach(function(card) {
+                const searchableText = card.textContent.toLowerCase();
+                
+                if (searchableText.includes(query)) {
+                    card.style.display = ""; 
+                    card.style.opacity = "1";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
